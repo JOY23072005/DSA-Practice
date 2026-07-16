@@ -3,15 +3,13 @@ public:
     long long mod = 1e9+7;
 
     long long power(long long base,long long exp){
-        long long res = 1;
-        while(exp>0){
-            if(exp %2==1){
-                res = (res * base)%mod;
-            }
-            base = (base * base)%mod;
-            exp/=2;
+        if(exp==0) return 1;
+        if(base==1 || base==0) return base;
+        if(exp % 2==1){
+            return ( base * power(base,exp-1) ) % mod;
         }
-        return res;
+        long long half = power(base,exp/2);
+        return ( half * half ) % mod;
     }
 
     int countGoodNumbers(long long n) {
